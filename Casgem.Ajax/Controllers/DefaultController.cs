@@ -40,5 +40,13 @@ namespace Casgem.Ajax.Controllers
 
             return NoContent();
         }
+
+        [HttpGet]
+        public IActionResult GetCustomer(int CustomerId)
+        {
+            var value = _context.Customers.Find(CustomerId);
+            var values = JsonConvert.SerializeObject(value);
+            return Json(values);
+        }
     }
 }

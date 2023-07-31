@@ -41,6 +41,19 @@
         <input type="text" class="form-control" id="txtDeleteId" placeholder="Silmek istediğiniz müşterinin Id'sini giriniz." />
         <br />
         <hr />
+
+        <h3>ID'ye göre Müşteri Getirme Alanı'</h3>
+        <input type="text" class="form-control" id="txtGetId" placeholder="Getirmek istediğiniz müşterinin Id'sini giriniz." />
+        <br />
+        <hr />
+        <h3>ID'ye göre Müşteri Listesi</h3>
+        <div id="customerWithIdList">
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <hr />
     </div>
 </div>
 
@@ -101,8 +114,8 @@
     $("#btnCustomerDelete").click(function () {
         let id = $("#txtDeleteId").val();
         $.ajax({
-            url: "/Default/DeleteCustomer"+id,
-            type: "GET",
+            url: "/Default/DeleteCustomer/"+id,
+            type: "POST",
             contentType: "application/json",
             success: function(response){
                 swal({
@@ -111,6 +124,43 @@
                     icon: "success",
                     button: "Tamamdır!"
                 });
+            }
+        });
+    });
+
+    $("#btnCustomerGet").click(function () {
+        let id = $("#txtGetId").val();
+        $.ajax({
+            url: "/Default/GetCustomer/",
+            type: "GET",
+            contentType: "application/json",
+            dataType: "json",
+            data: { CustomerId: id },
+            success: function (response) {
+                let result = jQuery.parseJSON(response);
+                console.log(result);
+                let tableHtml =
+                    `<table class='table table-bordered'>
+                            <tr>
+                                <th>Müşteri ID</th>
+                                <th>Müşteri Adı</th>
+                                <th>Müşteri Soyadı</th>
+                                <th>Şehir</th>
+                            </tr>
+                            <tr>
+                                    <td>${result.CustomerId}</td>
+                                    <td>${result.Name}</td>
+                                    <td>${result.Surname}</td>
+                                    <td>${result.City}</td>
+                            </tr>
+                    </table>`
+                $("#customerWithIdList").html(tableHtml);
+                /*swal({
+                    title: "Müşteri silindi!",
+                    text: "Veritabanında artık böyle bir müşteri yok.",
+                    icon: "success",
+                    button: "Tamamdır!"
+                });*/
             }
         });
     });
