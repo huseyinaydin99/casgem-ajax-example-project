@@ -52,6 +52,17 @@
         <br />
         <br />
         <hr />
+        <div>
+            <input id="txtEditId" type="text" class="form-control" placeholder="Güncellenecek Müşteri Id'si" />
+            <br />
+            <input id="txtEditName" type="text" class="form-control" placeholder="Güncellenecek Müşteri Adı" />
+            <br />
+            <input id="txtEditSurname" type="text" class="form-control" placeholder="Güncellenecek Müşteri Soyadı" />
+            <br />
+            <input id="txtEditCity" type="text" class="form-control" placeholder="Güncellenecek Müşteri Şehri" />
+            <br />
+            <hr />
+        </div>
     </div>
 </div>
 
@@ -161,5 +172,27 @@
                 });*/
             }
         });
+    });
+
+    $("#btnCustomerEdit").click(function () {
+        let values = {
+            CustomerId: $("#txtEditId").val(),
+            Name: $("#txtEditName").val(),
+            Surname: $("#txtEditSurname").val(),
+            City: $("#txtEditCity").val()
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Default/UpdateCustomer/",
+            data: values,
+            success: function(response){
+                swal({
+                    title: "Müşteri güncellendi!",
+                    text: "Veritabanında müşteri kaydı artık farklı.!",
+                    icon: "success",
+                    button: "Tamamdır!"
+                });
+            }
+        })
     });
 </script>
