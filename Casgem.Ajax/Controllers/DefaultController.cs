@@ -30,5 +30,15 @@ namespace Casgem.Ajax.Controllers
             var values = JsonConvert.SerializeObject(_context.Customers);
             return Json(values);
         }
+
+        [HttpPost]
+        public IActionResult DeleteCustomer(int id)
+        {
+            var value = _context.Customers.Find(id);
+            _context.Customers.Remove(value);
+            _context.SaveChanges();
+
+            return NoContent();
+        }
     }
 }

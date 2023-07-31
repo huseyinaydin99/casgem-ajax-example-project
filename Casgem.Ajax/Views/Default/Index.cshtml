@@ -26,12 +26,21 @@
     <br />
     <hr />
     <div>
+        <h3>Yeni Müşteri Ekleme Alanı</h3>
         <input type="text" class="form-control" id="txtCustomerName" placeholder="Müşteri Adı"/>
         <br />
         <input type="text" class="form-control" id="txtCustomerSurname" placeholder="Müşteri Soyadı"/>
         <br />
         <input type="text" class="form-control" id="txtCustomerCity" placeholder="Müşteri Şehri" />
         <br />
+        <hr />
+
+    </div>
+    <div>
+        <h3>Müşteri Silme Alanı</h3>
+        <input type="text" class="form-control" id="txtDeleteId" placeholder="Silmek istediğiniz müşterinin Id'sini giriniz." />
+        <br />
+        <hr />
     </div>
 </div>
 
@@ -83,6 +92,22 @@
                 swal({
                     title: "Müşteri eklendi!",
                     text: "Veritabanına kaydedildi.",
+                    icon: "success",
+                    button: "Tamamdır!"
+                });
+            }
+        });
+    });
+    $("#btnCustomerDelete").click(function () {
+        let id = $("#txtDeleteId").val();
+        $.ajax({
+            url: "/Default/DeleteCustomer"+id,
+            type: "GET",
+            contentType: "application/json",
+            success: function(response){
+                swal({
+                    title: "Müşteri silindi!",
+                    text: "Veritabanında artık böyle bir müşteri yok.",
                     icon: "success",
                     button: "Tamamdır!"
                 });
