@@ -41,6 +41,15 @@ namespace Casgem.Ajax.Controllers
             return NoContent();
         }
 
+        [HttpPost]
+        public IActionResult UpdateCustomer(Customer customer)
+        {
+            var value = _context.Customers.Find(customer.CustomerId);
+            _context.Customers.Update(value);
+            _context.SaveChanges();
+            return NoContent();
+        }
+
         [HttpGet]
         public IActionResult GetCustomer(int CustomerId)
         {
