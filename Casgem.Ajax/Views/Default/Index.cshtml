@@ -5,6 +5,7 @@
 }
 <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 
@@ -19,7 +20,18 @@
     <button type="button" id="btnCustomerGet" class="btn btn-outline-warning">Müşteri Getir</button>
     <br />
     <hr />
+    <h3>Müşteri Listesi</h3>
     <div id="customerList">
+    </div>
+    <br />
+    <hr />
+    <div>
+        <input type="text" class="form-control" id="txtCustomerName" placeholder="Müşteri Adı"/>
+        <br />
+        <input type="text" class="form-control" id="txtCustomerSurname" placeholder="Müşteri Soyadı"/>
+        <br />
+        <input type="text" class="form-control" id="txtCustomerCity" placeholder="Müşteri Şehri" />
+        <br />
     </div>
 </div>
 
@@ -52,6 +64,28 @@
                 })
                 tableHtml += "</table>";
                 $("#customerList").html(tableHtml);
+            }
+        });
+    });
+
+    $("#btnCustomerAdd").click(function () {
+        let values = {
+            Name: $("#txtCustomerName").val(),
+            Surname: $("#txtCustomerSurname").val(),
+            City: $("#txtCustomerCity").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: "/Default/AddCustomer/",
+            data: values,
+            success:function(response){
+                let result = jQuery.parseJSON(response);
+                swal({
+                    title: "Müşteri eklendi!",
+                    text: "Veritabanına kaydedildi.",
+                    icon: "success",
+                    button: "Tamamdır!"
+                });
             }
         });
     });
