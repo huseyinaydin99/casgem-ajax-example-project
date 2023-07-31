@@ -33,20 +33,22 @@
             success: function (funk1) {
                 let values = jQuery.parseJSON(funk1);
                 console.log(values);
-                let tableHtml = `<table class='table table-bordered'>
-                    <tr>
-                    <th>Müşteri ID</th>
-                    <th>Müşteri Adı</th>
-                    <th>Müşteri Soyadı</th>
-                    <th>Şehir</th>
-                    </tr>                `;
+                let tableHtml =
+                    `<table class='table table-bordered'>
+                        <tr>
+                            <th>Müşteri ID</th>
+                            <th>Müşteri Adı</th>
+                            <th>Müşteri Soyadı</th>
+                            <th>Şehir</th>
+                        </tr>                `;
                 $.each(values, (index, value) => {
-                    tableHtml += `<tr>
-                    <td>${value.CustomerId}</td>
-                    <td>${value.Name}</td>
-                    <td>${value.Surname}</td>
-                    <td>${value.City}</td>
-                    </tr>`
+                    tableHtml +=
+                        `<tr>
+                            <td>${value.CustomerId}</td>
+                            <td>${value.Name}</td>
+                            <td>${value.Surname}</td>
+                            <td>${value.City}</td>
+                        </tr>`
                 })
                 tableHtml += "</table>";
                 $("#customerList").html(tableHtml);
